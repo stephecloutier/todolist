@@ -8,5 +8,5 @@
 
 include 'configs/config.php';
 include 'models/model.php';
-include 'views/layout.php';
 include './router.php';
+include 'views/layout.php';

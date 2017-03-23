@@ -12,6 +12,6 @@
           href="./views/css/screen.css">
 </head>
 <body>
-    Ici ce retrouvera la bonne vue
+    <?php include $data['view']; ?>
 </body>
 </html>
