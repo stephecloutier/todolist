@@ -82,8 +82,8 @@ function deleteTask()
         try {
             $stmt->execute();
 
-            $taskId = $pdo->lastInsertId();
-            $stmt = $pdo->prepare('DELETE FROM task_user WHERE id = :id');
+            $taskId = $_POST['id'];
+            $stmt = $pdo->prepare('DELETE FROM task_user WHERE task_id = :id');
             $stmt->bindParam(':id', $taskId);
             $stmt->execute();
 
