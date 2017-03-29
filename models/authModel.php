@@ -8,6 +8,7 @@
 
 function connectUser()
 {
+
     $pdo = connectDB();
     $password = sha1($_POST['password']);
     if ($pdo) {
@@ -15,12 +16,13 @@ function connectUser()
         $stmt->bindParam(':email', $_SESSION['email']);
         $stmt->bindParam(':password', $password);
         try {
-            $pdoSt = $stmt->execute($pdo);
-            $user = $pdoSt->fetchAll();
+            $stmt->execute();
+            $user = $stmt->fetch();
         } catch (PDOException $e) {
             die('Connection failed:' . $e->getMessage());
         }
-
         $_SESSION['user'] = $user;
+        return true;
     }
 }
+

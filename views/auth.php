@@ -32,7 +32,5 @@
                         value="vérifier"
                         class="f-right"></div>
         </fieldset>
-    </form></div>
-<footer class="wrapper">
-    <p class="ta-right">Made by Dominique Vilain in 2016</p>
-</footer>
+    </form>
+</div>
