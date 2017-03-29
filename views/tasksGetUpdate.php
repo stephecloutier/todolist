@@ -22,8 +22,8 @@
                             </form>
                         <?php else: ?>
                             <form action="index.php" method="post">
-                                <label for="29" class="checkbox">
-                                    <input title="Changer le statut" type="checkbox" id="29" name="is_done" value="0">
+                                <label for="<?= $task['taskId']; ?>" class="checkbox">
+                                    <input title="Changer le statut" type="checkbox" id="<?= $task['taskId']; ?>" name="is_done" value="<?= $task['taskIsDone']; ?>">
                                     <span class="checkbox__label"><?= $task['taskDescription']; ?></span>
                                 </label>
                                 <label for="description" class="textfield">

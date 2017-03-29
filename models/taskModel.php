@@ -70,3 +70,26 @@ function createTask()
         return true;
     }
 }
+
+function deleteTask()
+{
+    $pdo = connectDB();
+    if($pdo) {
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $stmt = $pdo->prepare('DELETE FROM tasks WHERE id = :id');
+        $stmt->bindParam(':id', $_POST['id']);
+        try {
+            $stmt->execute();
+
+            $taskId = $pdo->lastInsertId();
+            $stmt = $pdo->prepare('DELETE FROM task_user WHERE id = :id');
+            $stmt->bindParam(':id', $taskId);
+            $stmt->execute();
+
+        } catch(PDOException $e) {
+            die('Connection failed:' . $e->getMessage());
+        }
+        return true;
+    }
+}
