@@ -9,7 +9,7 @@
             <li>
                 <div class="task grid">
                     <div class="column--heavy">
-                        <?php if(!$_GET['id'] == $task['taskId']): ?>
+                        <?php if($_GET['id'] != $task['taskId']): ?>
                             <form action="index.php" method="post">
                                 <label for="<?= $task['taskId']; ?>" class="checkbox ">
                                     <input title="Changer le statut" type="checkbox" id="<?= $task['taskId']; ?>" name="is_done">

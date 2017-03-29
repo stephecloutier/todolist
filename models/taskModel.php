@@ -28,17 +28,41 @@ function getTasksIndex()
     }
 }
 
-function updateTask() {
+function updateTask()
+{
     $pdo = connectDB();
     if($pdo) {
         $stmt = $pdo->prepare('UPDATE tasks
-                                SET description = :description, is_done = :is_done
+                                SET description = :description
                                 WHERE id = :id;
                               ');
         $stmt->bindParam(':description', $_POST['description']);
-        $stmt->bindParam(':is_done', $_POST['is_done']);
+        //$stmt->bindParam(':is_done', $_POST['is_done']);
         $stmt->bindParam(':id', $_POST['id']);
         try {
+            $stmt->execute();
+        } catch(PDOException $e) {
+            die('Connection failed:' . $e->getMessage());
+        }
+        return true;
+    }
+}
+function createTask()
+{
+    $pdo = connectDB();
+    if($pdo) {
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $stmt = $pdo->prepare('INSERT INTO tasks(`description`) VALUES(:description);');
+        $stmt->bindParam(':description', $_POST['description']);
+        try {
+            $stmt->execute();
+
+            $stmt = $pdo->prepare('INSERT INTO task_user(`task_id`, `user_id`) VALUES(:task_id, :user_id);');
+            $taskId =  $pdo->lastInsertId();
+            $stmt->bindParam(':task_id', $taskId);
+
+            $stmt->bindParam(':user_id', $_SESSION['user']['id']);
             $stmt->execute();
         } catch(PDOException $e) {
             die('Connection failed:' . $e->getMessage());

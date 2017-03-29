@@ -44,10 +44,8 @@
         <hr>
 
         <h1>Ajouter une tâche</h1>
-        <form action="index.php"
-              method="post">
-            <label for="description"
-                   class="textfield"><input type="text" name="description" id="description" size="80">
+        <form action="index.php" method="post">
+            <label for="description" class="textfield"><input type="text" name="description" id="description" size="80">
                 <span class="textfield__label">Description</span>
             </label>
             <input type="hidden" name="r" value="task">
