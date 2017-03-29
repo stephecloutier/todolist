@@ -15,11 +15,15 @@ function index()
 
 function getUpdate()
 {
-    return ['view' => 'views/taskGetUpdate.php'];
+    return ['view' => 'views/tasksGetUpdate.php'];
 }
 
 function postUpdate()
 {
     include 'models/taskModel.php';
-    return ['view' => 'views/tasksIndex.php'];
+    if(updateTask()){
+        header('Location: http://homestead.app/pwcs/todolist/index.php?r=task&a=index');
+    } else {
+        echo 'Il y a une erreur dans la connexion avec la base de données';
+    }
 }

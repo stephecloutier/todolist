@@ -15,7 +15,7 @@ function getTasksIndex()
                                 LEFT JOIN task_user ON tasks.id = task_user.task_id
                                 LEFT JOIN users ON task_user.user_id = users.id
                                 WHERE users.id = :userId
-                                ORDER BY description ASC
+                                ORDER BY description ASC;
                               ');
         $stmt->bindParam(':userId', $_SESSION['user']['id']);
         try {
@@ -25,5 +25,24 @@ function getTasksIndex()
             die('Connection failed:' . $e->getMessage());
         }
         return $tasks;
+    }
+}
+
+function updateTask() {
+    $pdo = connectDB();
+    if($pdo) {
+        $stmt = $pdo->prepare('UPDATE tasks
+                                SET description = :description, is_done = :is_done
+                                WHERE id = :id;
+                              ');
+        $stmt->bindParam(':description', $_POST['description']);
+        $stmt->bindParam(':is_done', $_POST['is_done']);
+        $stmt->bindParam(':id', $_POST['id']);
+        try {
+            $stmt->execute();
+        } catch(PDOException $e) {
+            die('Connection failed:' . $e->getMessage());
+        }
+        return true;
     }
 }
