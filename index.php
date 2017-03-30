@@ -7,6 +7,6 @@
  */
 
 include 'configs/config.php';
-include 'models/model.php';
+require 'vendor/autoload.php';
 include './router.php';
 include 'views/layout.php';
