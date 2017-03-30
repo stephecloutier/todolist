@@ -6,6 +6,13 @@
  * Time: 10:19
  */
 
+function checkLogin()
+{
+    if(!isset($_SESSION['user'])) {
+        header('Location: http://homestead.app/pwcs/todolist/index.php?r=task&a=index' );
+    }
+}
+
 function getTasksIndex()
 {
     $pdo = connectDB();

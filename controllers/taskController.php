@@ -9,18 +9,22 @@
 function index()
 {
     include 'models/taskModel.php';
+    checkLogin();
     $_SESSION['tasks'] = getTasksIndex();
     return ['view' => 'views/tasksIndex.php'];
 }
 
 function getUpdate()
 {
+    include 'models/taskModel.php';
+    checkLogin();
     return ['view' => 'views/tasksGetUpdate.php'];
 }
 
 function postUpdate()
 {
     include 'models/taskModel.php';
+    checkLogin();
     if(updateTask()){
         header('Location: http://homestead.app/pwcs/todolist/index.php?r=task&a=index');
     } else {
@@ -31,6 +35,7 @@ function postUpdate()
 function create()
 {
     include 'models/taskModel.php';
+    checkLogin();
     if(createTask()){
         header('Location: http://homestead.app/pwcs/todolist/index.php?r=task&a=index');
     } else {
@@ -41,6 +46,7 @@ function create()
 function postDelete()
 {
     include 'models/taskModel.php';
+    checkLogin();
     if(deleteTask()){
         header('Location: http://homestead.app/pwcs/todolist/index.php?r=task&a=index');
     } else {
