@@ -28,14 +28,18 @@ class Auth {
 
     public function postLogin ()
     {
-        $_SESSION['email'] = $_POST['email'];
-        $authModel = new AuthModel();
-        if($authModel->connectUser()){
-            header('Location: http://homestead.app/pwcs/todolist/index.php?r=task&a=index');
-            exit;
+        if(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+            $authModel = new AuthModel();
+            if ($authModel->connectUser($_POST['email'])) {
+                header('Location: http://homestead.app/pwcs/todolist/index.php?r=task&a=index');
+                exit;
+            } else {
+                echo 'Il y a une erreur dans votre mot de passe.';
+                return ['view' => 'views/auth.php'];
+            }
         } else {
-            echo 'Il y a une erreur dans vos identifiants';
+            echo 'Il y a une erreur dans votre email.';
+            return ['view' => 'views/auth.php'];
         }
-
     }
 }
