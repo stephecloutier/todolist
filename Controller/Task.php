@@ -5,26 +5,30 @@ namespace Controller;
 use \Model\Task as ModelTask;
 
 class Task {
+
+    private $modelTask = null;
+    public function __construct()
+    {
+        $this->modelTask = new ModelTask();
+    }
+
     public function index()
     {
-        $modelTask = new ModelTask();
-        $modelTask->checkLogin();
-        $_SESSION['tasks'] = $modelTask->getTasksIndex();
+        $this->modelTask->checkLogin();
+        $_SESSION['tasks'] = $this->modelTask->getTasksIndex();
         return ['view' => 'views/tasksIndex.php'];
     }
 
     public function getUpdate()
     {
-        $modelTask = new ModelTask();
-        $modelTask->checkLogin();
+        $this->modelTask->checkLogin();
         return ['view' => 'views/tasksGetUpdate.php'];
     }
 
     public function postUpdate()
     {
-        $modelTask = new ModelTask();
-        $modelTask->checkLogin();
-        if($modelTask->updateTask()){
+        $this->modelTask->checkLogin();
+        if($this->modelTask->updateTask()){
             header('Location: http://homestead.app/pwcs/todolist/index.php?r=task&a=index');
             exit;
         } else {
@@ -34,9 +38,8 @@ class Task {
 
     public function create()
     {
-        $modelTask = new ModelTask();
-        $modelTask->checkLogin();
-        if($modelTask->createTask()){
+        $this->modelTask->checkLogin();
+        if($this->modelTask->createTask()){
             header('Location: http://homestead.app/pwcs/todolist/index.php?r=task&a=index');
             exit;
         } else {
@@ -46,9 +49,8 @@ class Task {
 
     public function postDelete()
     {
-        $modelTask = new ModelTask();
-        $modelTask->checkLogin();
-        if($modelTask->deleteTask()){
+        $this->modelTask->checkLogin();
+        if($this->modelTask->deleteTask()){
             header('Location: http://homestead.app/pwcs/todolist/index.php?r=task&a=index');
             exit;
         } else {
