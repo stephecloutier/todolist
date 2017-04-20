@@ -3,11 +3,11 @@
 namespace Model;
 
 class Auth extends Model {
-    public function connectUser($email)
+    public function checkUser($email, $password)
     {
 
         $pdo = $this->connectDB();
-        $password = sha1($_POST['password']);
+        $password = sha1($password);
         if ($pdo) {
             $stmt = $pdo->prepare('SELECT * FROM users WHERE email = :email AND password = :password');
             $stmt->bindParam(':email', $email);
@@ -21,8 +21,7 @@ class Auth extends Model {
             if(!$user) {
                 return false;
             }
-            $_SESSION['user'] = $user;
-            return true;
+            return $user;
         }
     }
 }

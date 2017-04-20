@@ -30,7 +30,8 @@ class Auth {
     {
         if(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
             $authModel = new AuthModel();
-            if ($authModel->connectUser($_POST['email'])) {
+            $_SESSION['user'] = $authModel->checkUser($_POST['email'], $_POST['password']);
+            if ($_SESSION['user'] !== false) {
                 header('Location: http://homestead.app/pwcs/todolist/index.php?r=task&a=index');
                 exit;
             } else {

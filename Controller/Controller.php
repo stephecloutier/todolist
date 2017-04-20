@@ -11,7 +11,6 @@ namespace Controller;
 
 class Controller
 {
-
     protected function checkLogin()
     {
         if(!isset($_SESSION['user'])) {

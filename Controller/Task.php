@@ -16,7 +16,7 @@ class Task extends Controller {
     public function index()
     {
         $this->checkLogin();
-        $_SESSION['tasks'] = $this->modelTask->getTasksIndex();
+        $_SESSION['tasks'] = $this->modelTask->getTasksIndex($_SESSION['user']['id']);
         return ['view' => 'views/tasksIndex.php'];
     }
 
@@ -29,7 +29,7 @@ class Task extends Controller {
     public function postUpdate()
     {
         $this->checkLogin();
-        if($this->modelTask->updateTask()){
+        if($this->modelTask->updateTask($_POST['description'], $_POST['id'])){
             header('Location: http://homestead.app/pwcs/todolist/index.php?r=task&a=index');
             exit;
         } else {
@@ -40,7 +40,7 @@ class Task extends Controller {
     public function create()
     {
         $this->checkLogin();
-        if($this->modelTask->createTask()){
+        if($this->modelTask->createTask($_POST['description'], $_SESSION['user']['id'])){
             header('Location: http://homestead.app/pwcs/todolist/index.php?r=task&a=index');
             exit;
         } else {
@@ -51,7 +51,7 @@ class Task extends Controller {
     public function postDelete()
     {
         $this->checkLogin();
-        if($this->modelTask->deleteTask()){
+        if($this->modelTask->deleteTask($_POST['id'])){
             header('Location: http://homestead.app/pwcs/todolist/index.php?r=task&a=index');
             exit;
         } else {

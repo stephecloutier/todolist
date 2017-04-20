@@ -3,7 +3,7 @@
 namespace Model;
 
 class Model {
-    public function connectDB ()
+    protected function connectDB ()
     {
         $dsn = '';
         $db_config = ['username' => '', 'password' => ''];
