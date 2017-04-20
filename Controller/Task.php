@@ -4,9 +4,10 @@ namespace Controller;
 
 use \Model\Task as ModelTask;
 
-class Task {
+class Task extends Controller {
 
     private $modelTask = null;
+
     public function __construct()
     {
         $this->modelTask = new ModelTask();
@@ -14,20 +15,20 @@ class Task {
 
     public function index()
     {
-        $this->modelTask->checkLogin();
+        $this->checkLogin();
         $_SESSION['tasks'] = $this->modelTask->getTasksIndex();
         return ['view' => 'views/tasksIndex.php'];
     }
 
     public function getUpdate()
     {
-        $this->modelTask->checkLogin();
+        $this->checkLogin();
         return ['view' => 'views/tasksGetUpdate.php'];
     }
 
     public function postUpdate()
     {
-        $this->modelTask->checkLogin();
+        $this->checkLogin();
         if($this->modelTask->updateTask()){
             header('Location: http://homestead.app/pwcs/todolist/index.php?r=task&a=index');
             exit;
@@ -38,7 +39,7 @@ class Task {
 
     public function create()
     {
-        $this->modelTask->checkLogin();
+        $this->checkLogin();
         if($this->modelTask->createTask()){
             header('Location: http://homestead.app/pwcs/todolist/index.php?r=task&a=index');
             exit;
@@ -49,7 +50,7 @@ class Task {
 
     public function postDelete()
     {
-        $this->modelTask->checkLogin();
+        $this->checkLogin();
         if($this->modelTask->deleteTask()){
             header('Location: http://homestead.app/pwcs/todolist/index.php?r=task&a=index');
             exit;

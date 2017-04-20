@@ -3,13 +3,7 @@
 namespace Model;
 
 class Task extends Model {
-    public function checkLogin()
-    {
-        if(!isset($_SESSION['user'])) {
-            header('Location: http://homestead.app/pwcs/todolist/index.php?r=task&a=index' );
-            exit;
-        }
-    }
+
 
     public function getTasksIndex()
     {
