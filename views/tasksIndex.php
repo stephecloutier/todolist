@@ -11,8 +11,8 @@
                         <div class="column--heavy">
                             <form action="index.php" method="post">
                                 <label for="<?= $task['taskId']; ?>" class="checkbox ">
-                                    <input title="Changer le statut" type="checkbox" id="<?= $task['taskId']; ?>" name="is_done">
-                                    <span class="checkbox__label fs-base"><?= $task['taskDescription']; ?></span>
+                                    <input title="Changer le statut" type="checkbox" id="<?= $task['taskId']; ?>" name="is_done" <?php if($task['taskIsDone']){ echo 'checked'; }; ?>>
+                                    <span class="checkbox__label fs-base <?php if($task['taskIsDone']){ echo 'done'; }; ?>" ><?= $task['taskDescription']; ?></span>
                                 </label>
                                 <input type="hidden" name="r" value="task">
                                 <input type="hidden" name="a" value="postUpdate">

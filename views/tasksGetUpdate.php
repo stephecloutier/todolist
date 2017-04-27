@@ -9,33 +9,21 @@
             <li>
                 <div class="task grid">
                     <div class="column--heavy">
-                        <?php if($_GET['id'] != $task['taskId']): ?>
                             <form action="index.php" method="post">
                                 <label for="<?= $task['taskId']; ?>" class="checkbox ">
-                                    <input title="Changer le statut" type="checkbox" id="<?= $task['taskId']; ?>" name="is_done">
-                                    <span class="checkbox__label fs-base"><?= $task['taskDescription']; ?></span>
+                                    <input title="Changer le statut" type="checkbox" id="<?= $task['taskId']; ?>" name="is_done" <?php if($task['taskIsDone']){ echo 'checked'; }; ?>>
+                                    <span class="checkbox__label fs-base <?php if($task['taskIsDone']){ echo 'done'; }; ?>" ><?= $task['taskDescription']; ?></span>
                                 </label>
+                                <?php if($_GET['id'] === $task['taskId']): ?>
+                                    <label for="description" class="textfield">
+                                        <input type="text" size="40" value="<?= $task['taskDescription']; ?>" name="description" title="description" id="description">
+                                    </label>
+                                <?php endif; ?>
                                 <input type="hidden" name="r" value="task">
                                 <input type="hidden" name="a" value="postUpdate">
                                 <input type="hidden" name="id" value="<?= $task['taskId']; ?>">
                                 <button type="submit">Enregistrer</button>
                             </form>
-                        <?php else: ?>
-                            <form action="index.php" method="post">
-                                <label for="<?= $task['taskId']; ?>" class="checkbox">
-                                    <input title="Changer le statut" type="checkbox" id="<?= $task['taskId']; ?>" name="is_done" value="<?= $task['taskIsDone']; ?>">
-                                    <span class="checkbox__label"><?= $task['taskDescription']; ?></span>
-                                </label>
-                                <label for="description" class="textfield">
-                                    <input type="text" size="40" value="<?= $task['taskDescription']; ?>" name="description" title="description" id="description">
-                                    <span class="textfield__label"><?= $task['taskDescription']; ?></span>
-                                </label>
-                                <input type="hidden" name="r" value="task">
-                                <input type="hidden" name="a" value="postUpdate">
-                                <input type="hidden" name="id" value="<?= $task['taskId']; ?>">
-                                <button type="submit">Enregistrer</button>
-                            </form>
-                        <?php endif; ?>
                     </div>
                     <div>
                         <form action="index.php" method="get">

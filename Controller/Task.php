@@ -29,7 +29,9 @@ class Task extends Controller {
     public function postUpdate()
     {
         $this->checkLogin();
-        if($this->modelTask->updateTask($_POST['description'], $_POST['id'])){
+        $description = $this->modelTask->checkDescription($_POST['description']);
+        $is_done = isset($_POST['is_done']) ? 1 : 0;
+        if($this->modelTask->updateTask($description, $_POST['id'], $is_done)){
             header('Location: http://homestead.app/pwcs/todolist/index.php?r=task&a=index');
             exit;
         } else {
